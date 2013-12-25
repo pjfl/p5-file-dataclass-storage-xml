@@ -1,5 +1,8 @@
 Revision history for File::DataClass::Storage::XML
 
+0.27.2    2013-12-25 22:00:28
+          - Added test files from File::DataClass
+
 0.1.1     2013-12-15 14:33:02
           - Added project files to master branch
 
