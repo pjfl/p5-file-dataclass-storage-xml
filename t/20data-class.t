@@ -1,8 +1,8 @@
-# @(#)$Ident: 20data-class.t 2013-12-15 21:12 pjf ;
+# @(#)$Ident: 20data-class.t 2014-01-12 17:52 pjf ;
 
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 6 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 7 $ =~ /\d+/gmx );
 use File::Spec::Functions   qw( catdir catfile updir );
 use FindBin                 qw( $Bin );
 use lib                 catdir( $Bin, updir, 'lib' );
@@ -87,7 +87,7 @@ ok ! $diff, 'Load and dump roundtrips';
 
 $e = test( $schema, q(resultset) );
 
-like $e, qr{ \QResult source not specified\E }msx,
+like $e, qr{ \Q'result source' not specified\E }msx,
    'Result source not specified';
 
 $e = test( $schema, q(resultset), q(globals) );
@@ -105,7 +105,7 @@ my $rs = test( $schema, q(resultset), q(globals) );
 
 $args = {}; $e = test( $rs, q(create), $args );
 
-like $e, qr{ \QNo element name specified\E }msx, 'No element name specified';
+like $e, qr{ \Q'record name' not specified\E }msx, 'No element name specified';
 
 $args->{name} = q(dummy); my $res = test( $rs, q(create), $args );
 

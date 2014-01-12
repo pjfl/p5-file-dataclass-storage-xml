@@ -1,5 +1,7 @@
 Revision history for File::DataClass::Storage::XML
 
+          - Refactored storage class extension mapping
+
 0.27.2    2013-12-25 22:00:28
           - Added test files from File::DataClass
 
