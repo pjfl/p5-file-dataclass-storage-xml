@@ -1,11 +1,8 @@
-# @(#)$Ident: 20data-class.t 2014-01-12 17:52 pjf ;
-
 use strict;
 use warnings;
-use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 7 $ =~ /\d+/gmx );
-use File::Spec::Functions   qw( catdir catfile updir );
-use FindBin                 qw( $Bin );
-use lib                 catdir( $Bin, updir, 'lib' );
+use File::Spec::Functions qw( catdir catfile updir );
+use FindBin               qw( $Bin );
+use lib               catdir( $Bin, updir, 'lib' );
 
 use Test::More;
 use Test::Requires { version => 0.88 };
@@ -105,19 +102,19 @@ my $rs = test( $schema, q(resultset), q(globals) );
 
 $args = {}; $e = test( $rs, q(create), $args );
 
-like $e, qr{ \Q'record name' not specified\E }msx, 'No element name specified';
+like $e, qr{ \Q'record id' not specified\E }msx, 'No element name specified';
 
-$args->{name} = q(dummy); my $res = test( $rs, q(create), $args );
+$args->{id} = q(dummy); my $res = test( $rs, q(create), $args );
 
-ok ! defined $res, 'Creates dummy element but does not insert';
+ok !$res, 'Creates dummy element but does not insert';
 
 $args->{text} = q(value1); $res = test( $rs, q(create), $args );
 
-is $res, q(dummy), 'Creates dummy element and inserts';
+is $res->id, q(dummy), 'Creates dummy element and inserts';
 
 $args->{text} = q(value2); $res = test( $rs, q(update), $args );
 
-is $res, q(dummy), 'Can update';
+is $res->id, q(dummy), 'Can update';
 
 delete $args->{text}; $res = test( $rs, q(find), $args );
 
@@ -135,25 +132,25 @@ $e = test( $rs, q(delete), $args );
 
 like $e, qr{ does \s+ not \s+ exist }mx, 'Detects non existing element';
 
-$args = { name => 'dummy', text => 'value3' };
+$args = { id => 'dummy', text => 'value3' };
 
 $res = test( $rs, 'create_or_update', $args );
 
-is $res, 'dummy','Create or update creates';
+is $res->id, 'dummy','Create or update creates';
 
 $args->{text} = 'value4'; $res = test( $rs, 'create_or_update', $args );
 
-is $res, 'dummy','Create or update updates';
+is $res->id, 'dummy','Create or update updates';
 
 $res = test( $rs, 'delete', $args );
 
-is( ($rs->source->columns)[ 0 ], 'text', 'Result source columns' );
+is( ($rs->result_source->columns)[ 0 ], 'text', 'Result source columns' );
 
-is $rs->source->has_column( 'text' ), 1, 'Has column - true';
+is $rs->result_source->has_column( 'text' ), 1, 'Has column - true';
 
-is $rs->source->has_column( 'nochance' ), 0, 'Has column - false';
+is $rs->result_source->has_column( 'nochance' ), 0, 'Has column - false';
 
-is $rs->source->has_column(), 0, 'Has column - undef';
+is $rs->result_source->has_column(), 0, 'Has column - undef';
 
 $schema = File::DataClass::Schema->new
    ( path    => [ qw(t default.xml) ],
@@ -163,7 +160,7 @@ $schema = File::DataClass::Schema->new
      tempdir => q(t) );
 
 $rs   = $schema->resultset( q(fields) );
-$args = { name => q(feedback.body) };
+$args = { id => q(feedback.body) };
 $res  = test( $rs, q(list), $args );
 
 ok $res->result->width == 72 && scalar @{ $res->list } == 3, 'Can list';
@@ -176,7 +173,7 @@ $schema = File::DataClass::Schema->new
      tempdir => q(t) );
 
 $rs   = $schema->resultset( q(levels) );
-$args = { list => q(acl), name => q(admin) };
+$args = { list => q(acl), id => q(admin) };
 $args->{items} = [ qw(group1 group2) ];
 $res  = test( $rs, q(push), $args );
 
@@ -187,13 +184,13 @@ $args = { acl => q(@support) };
 
 my @res = test( $rs, q(search), $args );
 
-ok $res[ 0 ] && $res[ 0 ]->name eq q(admin), 'Can search';
+ok $res[ 0 ] && $res[ 0 ]->id eq q(admin), 'Can search';
 
-is $rs->search( $args )->first->name, 'admin', 'RS - first';
-is $rs->search( $args )->last->name, 'admin', 'RS - last';
-is $rs->search( $args )->next->name, 'admin', 'RS - next';
+is $rs->search( $args )->first->id, 'admin', 'RS - first';
+is $rs->search( $args )->last->id, 'admin', 'RS - last';
+is $rs->search( $args )->next->id, 'admin', 'RS - next';
 
-$args = { list => q(acl), name => q(admin) };
+$args = { list => q(acl), id => q(admin) };
 $args->{items} = [ qw(group1 group2) ];
 $res  = test( $rs, q(splice), $args );
 

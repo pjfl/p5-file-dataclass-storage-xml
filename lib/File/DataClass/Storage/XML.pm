@@ -1,20 +1,14 @@
-# @(#)$Ident: XML.pm 2014-01-12 17:35 pjf ;
-
 package File::DataClass::Storage::XML;
 
 use 5.01;
 use namespace::sweep;
-use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 7 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 8 $ =~ /\d+/gmx );
 
 use Moo;
 use File::DataClass::Constants;
 use File::DataClass::Functions qw( extension_map );
 use File::DataClass::Types     qw( ArrayRef HashRefOfBools Str );
 
-BEGIN {
-   extension_map 'XML::Simple' => '.xml';
-   extension_map 'XML::Bare'   => '.xml';
-}
 
 extends q(File::DataClass::Storage);
 
@@ -28,6 +22,11 @@ has '_arrays'   => is => 'rw', isa => HashRefOfBools, default => sub { {} },
 
 has '_dtd'      => is => 'rw', isa => ArrayRef, default => sub { [] },
    init_arg     => 'dtd';
+
+# Construction
+extension_map 'XML::Simple' => '.xml';
+
+extension_map 'XML::Bare'   => '.xml';
 
 around 'meta_pack' => sub {
    my ($orig, $self, @args) = @_; my $packed = $orig->( $self, @args );
@@ -113,7 +112,7 @@ File::DataClass::Storage::XML - Read/write XML data storage model
 
 =head1 Version
 
-This document describes version v0.27.$Rev: 7 $
+This document describes version v0.27.$Rev: 8 $
 
 =head1 Synopsis
 

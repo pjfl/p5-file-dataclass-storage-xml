@@ -1,9 +1,6 @@
-# @(#)$Ident: Bare.pm 2013-12-25 21:55 pjf ;
-
 package File::DataClass::Storage::XML::Bare;
 
 use namespace::sweep;
-use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 2 $ =~ /\d+/gmx );
 
 use Moo;
 use MooX::Augment -class;
@@ -165,10 +162,6 @@ __END__
 =head1 Name
 
 File::DataClass::Storage::XML::Bare - Read/write XML data storage model
-
-=head1 Version
-
-This document describes version v0.27.$Rev: 2 $
 
 =head1 Synopsis
 
