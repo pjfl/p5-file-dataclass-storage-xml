@@ -1,5 +1,7 @@
 Revision history for File::DataClass::Storage::XML
 
+0.28.1    2014-08-04 14:46:14
+          - Replace namespace::sweep with namespace::autoclean
           - Removed Ident and VERSION lines
           - Refactored storage class extension mapping
 

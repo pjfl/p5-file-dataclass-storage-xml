@@ -1,8 +1,8 @@
 package File::DataClass::Storage::XML;
 
 use 5.01;
-use namespace::sweep;
-use version; our $VERSION = qv( sprintf '0.27.%d', q$Rev: 8 $ =~ /\d+/gmx );
+use namespace::autoclean;
+use version; our $VERSION = qv( sprintf '0.28.%d', q$Rev: 1 $ =~ /\d+/gmx );
 
 use Moo;
 use File::DataClass::Constants;
@@ -112,12 +112,12 @@ File::DataClass::Storage::XML - Read/write XML data storage model
 
 =head1 Version
 
-This document describes version v0.27.$Rev: 8 $
+This document describes version v0.28.$Rev: 1 $
 
 =head1 Synopsis
 
-This is an abstract base class. See one of the subclasses for a
-concrete example
+This is an base class. See one of the subclasses for a concrete
+example
 
 =head1 Configuration and Environment
 

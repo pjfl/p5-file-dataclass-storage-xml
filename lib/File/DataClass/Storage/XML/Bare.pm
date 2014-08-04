@@ -1,6 +1,6 @@
 package File::DataClass::Storage::XML::Bare;
 
-use namespace::sweep;
+use namespace::autoclean;
 
 use Moo;
 use MooX::Augment -class;
