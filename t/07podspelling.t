@@ -42,3 +42,4 @@ peter
 flanigan
 DTD
 filenames
+merchantability

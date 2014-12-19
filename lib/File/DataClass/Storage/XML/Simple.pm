@@ -3,13 +3,12 @@ package File::DataClass::Storage::XML::Simple;
 use namespace::autoclean;
 
 use Moo;
-use MooX::Augment -class;
 use File::DataClass::Constants;
 use XML::Simple;
 
 extends qw(File::DataClass::Storage::XML);
 
-augment '_read_file' => sub {
+sub read_from_file {
    my ($self, $rdr) = @_;
 
    $self->encoding and $rdr->encoding( $self->encoding );
@@ -18,9 +17,9 @@ augment '_read_file' => sub {
    my $xs   = XML::Simple->new( SuppressEmpty => TRUE );
 
    return $xs->xml_in( $data, ForceArray => [ keys %{ $self->_arrays } ] );
-};
+}
 
-augment '_write_file' => sub {
+sub write_to_file {
    my ($self, $wtr, $data) = @_;
 
    my $xs = XML::Simple->new( NoAttr   => TRUE, SuppressEmpty => TRUE,
@@ -30,7 +29,7 @@ augment '_write_file' => sub {
    $self->_dtd->[ 0 ] and $wtr->println( @{ $self->_dtd } );
    $wtr->append( $xs->xml_out( $data ) );
    return $data;
-};
+}
 
 1;
 
@@ -56,14 +55,14 @@ Uses L<XML::Simple> to read and write XML files
 
 =head1 Subroutines/Methods
 
-=head2 _read_file
+=head2 read_from_file
 
 Defines the closure that reads the file, parses the DTD, parses the
 file using L<XML::Simple>. Calls
 L<read file with locking|File::DataClass::Storage::XML/_read_file_with_locking>
 in the base class
 
-=head2 _write_file
+=head2 write_to_file
 
 Defines the closure that writes the DTD and data to file
 

@@ -3,7 +3,6 @@ package File::DataClass::Storage::XML::Bare;
 use namespace::autoclean;
 
 use Moo;
-use MooX::Augment -class;
 use File::DataClass::Constants;
 use XML::Bare;
 
@@ -13,7 +12,7 @@ my $XBVER   = $XML::Bare::VERSION;
 my $BORKED  = $XBVER > 0.45 && $XBVER < 0.48 ? TRUE : FALSE;
 my $PADDING = q(  );
 
-augment '_read_file' => sub {
+sub read_from_file {
    my ($self, $rdr) = @_; my $data;
 
    $self->encoding and $rdr->encoding( $self->encoding );
@@ -23,16 +22,16 @@ augment '_read_file' => sub {
    $data = $data->{ $self->root_name } || {};
    $self->_read_filter( $self->_arrays || {}, $data );
    return $data;
-};
+}
 
-augment '_write_file' => sub {
+sub write_to_file {
    my ($self, $wtr, $data) = @_;
 
    $self->encoding and $wtr->encoding( $self->encoding );
    $self->_dtd->[0] and $wtr->println( @{ $self->_dtd } );
    $wtr->append( $self->_write_filter( 0, $self->root_name, $data ) );
    return $data;
-};
+}
 
 # Private methods
 sub _read_filter {
@@ -177,7 +176,7 @@ Uses L<XML::Bare> to read and write XML files
 
 =head1 Subroutines/Methods
 
-=head2 _read_file
+=head2 read_from_file
 
 Defines the closure that reads the file, parses the DTD, parses the
 file using L<XML::Bare> and filters the resulting hash so that it is
@@ -190,7 +189,7 @@ in the base class
 Processes the hash read by L</_read_file> altering it's structure so that
 is is compatible with L<XML::Simple>
 
-=head2 _write_file
+=head2 write_to_file
 
 Defines the closure that writes the DTD and data to file. Filters the data
 so that it is readable by L<XML::Bare>

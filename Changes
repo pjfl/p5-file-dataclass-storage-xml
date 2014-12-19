@@ -1,5 +1,8 @@
 Revision history for File::DataClass::Storage::XML
 
+          - Storage API methods now called read_from_file and write_to_file
+          - Dropped Class::Method::ModifiersX::Augment
+
 0.28.1    2014-08-04 14:46:14
           - Replace namespace::sweep with namespace::autoclean
           - Removed Ident and VERSION lines

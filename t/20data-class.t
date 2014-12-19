@@ -110,6 +110,8 @@ ok !$res, 'Creates dummy element but does not insert';
 
 $args->{text} = q(value1); $res = test( $rs, q(create), $args );
 
+$res->isa( 'Unexpected' ) and warn "${res}\n";
+
 is $res->id, q(dummy), 'Creates dummy element and inserts';
 
 $args->{text} = q(value2); $res = test( $rs, q(update), $args );
