@@ -2,9 +2,9 @@ package File::DataClass::Storage::XML::Simple;
 
 use namespace::autoclean;
 
-use Moo;
-use File::DataClass::Constants;
+use File::DataClass::Constants qw( TRUE );
 use XML::Simple;
+use Moo;
 
 extends qw(File::DataClass::Storage::XML);
 

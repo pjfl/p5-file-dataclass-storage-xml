@@ -1,5 +1,6 @@
 Revision history for File::DataClass::Storage::XML
 
+          - Updated prereqs and toolchain
           - Storage API methods now called read_from_file and write_to_file
           - Dropped Class::Method::ModifiersX::Augment
 

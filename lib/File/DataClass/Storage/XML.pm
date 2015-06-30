@@ -2,13 +2,12 @@ package File::DataClass::Storage::XML;
 
 use 5.01;
 use namespace::autoclean;
-use version; our $VERSION = qv( sprintf '0.28.%d', q$Rev: 1 $ =~ /\d+/gmx );
+use version; our $VERSION = qv( sprintf '0.28.%d', q$Rev: 2 $ =~ /\d+/gmx );
 
-use Moo;
-use File::DataClass::Constants;
+use File::DataClass::Constants qw( TRUE FALSE );
 use File::DataClass::Functions qw( extension_map );
 use File::DataClass::Types     qw( ArrayRef HashRefOfBools Str );
-
+use Moo;
 
 extends q(File::DataClass::Storage);
 
@@ -112,7 +111,7 @@ File::DataClass::Storage::XML - Read/write XML data storage model
 
 =head1 Version
 
-This document describes version v0.28.$Rev: 1 $
+This document describes version v0.28.$Rev: 2 $
 
 =head1 Synopsis
 

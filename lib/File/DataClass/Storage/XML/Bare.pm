@@ -2,9 +2,9 @@ package File::DataClass::Storage::XML::Bare;
 
 use namespace::autoclean;
 
-use Moo;
-use File::DataClass::Constants;
+use File::DataClass::Constants qw( ARRAY FALSE HASH NUL TRUE );
 use XML::Bare;
+use Moo;
 
 extends qw(File::DataClass::Storage::XML);
 
@@ -28,7 +28,7 @@ sub write_to_file {
    my ($self, $wtr, $data) = @_;
 
    $self->encoding and $wtr->encoding( $self->encoding );
-   $self->_dtd->[0] and $wtr->println( @{ $self->_dtd } );
+   $self->_dtd->[ 0 ] and $wtr->println( @{ $self->_dtd } );
    $wtr->append( $self->_write_filter( 0, $self->root_name, $data ) );
    return $data;
 }
